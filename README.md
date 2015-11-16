@@ -1,6 +1,6 @@
 # Spring Cloud Ribbon Discovery Server filter
 
-> A Spring Cloud Ribbon extension for filtering the
+> A Spring Cloud Ribbon extension for filtering the server list.
 
 [![Build Status](https://travis-ci.org/jmnarloch/ribbon-discovery-filter-spring-cloud-starter.svg?branch=master)](https://travis-ci.org/jmnarloch/ribbon-discovery-filter-spring-cloud-starter)
 [![Coverage Status](https://coveralls.io/repos/jmnarloch/ribbon-discovery-filter-spring-cloud-starter/badge.svg?branch=master&service=github)](https://coveralls.io/github/jmnarloch/ribbon-discovery-filter-spring-cloud-starter?branch=master)
