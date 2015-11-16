@@ -45,7 +45,7 @@ public class MetadataServerListMatcher implements DiscoveryEnabledServerListMatc
         }
 
         public List<DiscoveryEnabledServer> match() {
-            List<DiscoveryEnabledServer> matching = new ArrayList<>();
+            final List<DiscoveryEnabledServer> matching = new ArrayList<>();
             for(DiscoveryEnabledServer server : servers) {
                 final Map<String, String> metadata = server.getInstanceInfo().getMetadata();
                 for(Map.Entry<String, String> entry : filterContext.getAttributes().entrySet()) {
