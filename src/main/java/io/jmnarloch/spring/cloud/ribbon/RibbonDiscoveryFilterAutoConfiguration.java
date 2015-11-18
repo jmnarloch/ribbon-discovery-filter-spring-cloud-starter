@@ -22,7 +22,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * The Ribbon discovery auto configuration.
  *
+ * @author Jakub Narloch
  */
 @Configuration
 public class RibbonDiscoveryFilterAutoConfiguration {

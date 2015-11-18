@@ -16,7 +16,9 @@
 package io.jmnarloch.spring.cloud.ribbon;
 
 /**
+ * The Ribbon filter context holder.
  *
+ * @author Jakub Narloch
  */
 public class RibbonDiscoveryFilterContextHolder {
 

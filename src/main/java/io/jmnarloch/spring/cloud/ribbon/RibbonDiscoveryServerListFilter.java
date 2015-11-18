@@ -21,7 +21,10 @@ import com.netflix.niws.loadbalancer.DiscoveryEnabledServer;
 import java.util.List;
 
 /**
+ * A simple delegating implementation of {@link ServerListFilter} that uses {@link DiscoveryEnabledServerListMatcher}
+ * for determining the list of matching servers.
  *
+ * @author Jakub Narloch
  */
 public class RibbonDiscoveryServerListFilter implements ServerListFilter<DiscoveryEnabledServer> {
 

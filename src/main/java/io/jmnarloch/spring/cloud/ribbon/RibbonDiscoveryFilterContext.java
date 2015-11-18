@@ -20,8 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Ribbon discovery filter context.
  *
- *
+ * @author Jakub Narloch
  */
 public class RibbonDiscoveryFilterContext {
 

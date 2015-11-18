@@ -22,14 +22,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * A simple {@link DiscoveryEnabledServerListMatcher} matcher that matches the values based on the metadata entries in
+ * the discovery service.
  *
+ * @author Jakub Narloch
  */
 public class MetadataServerListMatcher implements DiscoveryEnabledServerListMatcher {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<DiscoveryEnabledServer> matchServers(List<DiscoveryEnabledServer> servers) {
 
-        final ServerMatcher serverMatcher = new ServerMatcher(RibbonDiscoveryFilterContextHolder.getCurrentContext(), servers);
+        final ServerMatcher serverMatcher = new ServerMatcher(
+                RibbonDiscoveryFilterContextHolder.getCurrentContext(), servers);
         return serverMatcher.match();
     }
 
