@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,13 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.spring.cloud.ribbon;
+package io.jmnarloch.spring.cloud.ribbon.matcher;
 
 import com.netflix.niws.loadbalancer.DiscoveryEnabledServer;
+import io.jmnarloch.spring.cloud.ribbon.api.DiscoveryEnabledServerListMatcher;
+import io.jmnarloch.spring.cloud.ribbon.api.RibbonFilterContext;
+import io.jmnarloch.spring.cloud.ribbon.support.RibbonFilterContextHolder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A simple {@link DiscoveryEnabledServerListMatcher} matcher that matches the values based on the metadata entries in
@@ -35,31 +40,33 @@ public class MetadataServerListMatcher implements DiscoveryEnabledServerListMatc
     @Override
     public List<DiscoveryEnabledServer> matchServers(List<DiscoveryEnabledServer> servers) {
 
-        final ServerMatcher serverMatcher = new ServerMatcher(
-                RibbonDiscoveryFilterContextHolder.getCurrentContext(), servers);
+        final ServerMatcher serverMatcher = new ServerMatcher(RibbonFilterContextHolder.getCurrentContext(), servers);
         return serverMatcher.match();
     }
 
+    /**
+     * A base attribute based matcher.
+     *
+     * @author Jakub Narloch
+     */
     private static class ServerMatcher {
 
-        private final RibbonDiscoveryFilterContext filterContext;
+        private final RibbonFilterContext filterContext;
 
         private final List<DiscoveryEnabledServer> servers;
 
-        public ServerMatcher(RibbonDiscoveryFilterContext filterContext, List<DiscoveryEnabledServer> servers) {
+        public ServerMatcher(RibbonFilterContext filterContext, List<DiscoveryEnabledServer> servers) {
             this.filterContext = filterContext;
             this.servers = servers;
         }
 
         public List<DiscoveryEnabledServer> match() {
             final List<DiscoveryEnabledServer> matching = new ArrayList<>();
-            for(DiscoveryEnabledServer server : servers) {
+            final Set<Map.Entry<String, String>> attributes = Collections.unmodifiableSet(filterContext.getAttributes().entrySet());
+            for (DiscoveryEnabledServer server : servers) {
                 final Map<String, String> metadata = server.getInstanceInfo().getMetadata();
-                for(Map.Entry<String, String> entry : filterContext.getAttributes().entrySet()) {
-                    String value = metadata.get(entry.getKey());
-                    if(value != null && value.equals(entry.getValue())) {
-                        matching.add(server);
-                    }
+                if (metadata.entrySet().containsAll(attributes)) {
+                    matching.add(server);
                 }
             }
             return matching;

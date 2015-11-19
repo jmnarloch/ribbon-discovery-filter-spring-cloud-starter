@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.spring.cloud.ribbon;
+package io.jmnarloch.spring.cloud.ribbon.support;
 
+import io.jmnarloch.spring.cloud.ribbon.matcher.MetadataServerListMatcher;
+import io.jmnarloch.spring.cloud.ribbon.api.DiscoveryEnabledServerListMatcher;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

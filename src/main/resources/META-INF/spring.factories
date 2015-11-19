@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-io.jmnarloch.spring.cloud.ribbon.RibbonDiscoveryFilterAutoConfiguration
+io.jmnarloch.spring.cloud.ribbon.support.RibbonDiscoveryFilterAutoConfiguration
