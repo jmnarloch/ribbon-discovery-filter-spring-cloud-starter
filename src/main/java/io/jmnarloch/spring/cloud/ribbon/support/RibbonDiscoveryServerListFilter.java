@@ -58,7 +58,7 @@ public class RibbonDiscoveryServerListFilter implements ServerListFilter<Server>
             }
         }
 
-        final List<? extends Server> matched = matcher.matchServers(discoveryServers);
+        final List<? super DiscoveryEnabledServer> matched = matcher.matchServers(discoveryServers);
         return (List<Server>) matched;
     }
 }

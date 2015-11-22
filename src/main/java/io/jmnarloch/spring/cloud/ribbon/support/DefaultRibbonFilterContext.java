@@ -40,8 +40,9 @@ public class DefaultRibbonFilterContext implements RibbonFilterContext {
      * @param value the attribute value
      */
     @Override
-    public void add(String key, String value) {
+    public RibbonFilterContext add(String key, String value) {
         attributes.put(key, value);
+        return this;
     }
 
     /**
@@ -61,8 +62,9 @@ public class DefaultRibbonFilterContext implements RibbonFilterContext {
      * @param key the context attribute
      */
     @Override
-    public void remove(String key) {
+    public RibbonFilterContext remove(String key) {
         attributes.remove(key);
+        return this;
     }
 
     /**

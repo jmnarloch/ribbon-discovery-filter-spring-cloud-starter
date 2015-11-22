@@ -7,6 +7,9 @@
 
 ## Features
 
+Allows to specify the criteria based on which the Ribbon servers will chosen during runtime. It will affect the list of
+servers provided for instance through Eureka and allow to filter them based on for instance presence of specific setting.
+
 ## Setup
 
 Add the Spring Cloud starter to your project:
@@ -19,8 +22,62 @@ Add the Spring Cloud starter to your project:
 </dependency>
 ```
 
+## Usage
+
+The extension specifies a `DiscoveryEnabledServerListMatcher` interface through which you can provide your own filtering
+logic, currently it's only implementation is `MetadataServerListMatcher` that match the specified attribute against the
+service instance metadata.
+
+It's defines the glue code to perform the server filtering, but it's up to specific use case how exactly this is going
+to be used.
+
+Example:
+
+Let's consider situation when you have deployed multiple versions of the same application (by branching your codebase)
+overtime and you deploy and run them in you system simultaneously. You need to route your versioned requests towards
+correct services. A simple approach would be to prefix the name of your service like for instance `recommendations-v1.0`
+or `recommendations-v1.1` etc. This is going to work, but does not provide a very flexible solution. A more general
+approach would be to facilitate the metadata associated with your discovery service and add logic for filtering the services.
+
+```
+eureka:
+  instance:
+    metadataMap:
+      version: 1.0
+      variant: A
+```
+
+To routes the Ribbon request towards services with specific `metadataMap` entries you need to populate the thread bound
+`RibbonFilterContext`:
+
+```java
+
+RibbonFilterContextHolder.getCurrentContext()
+                .add("version", "1.0")
+                .add("variant", "A");
+
+```
+
+You can place such code in your application logic or in some more convenient place like for instance RestTemplate's
+ClientHttpRequestInterceptor for more generic approaches.
+
+You may also provide your own custom logic, the only requirement is to implement and register instance of
+`DiscoveryEnabledServerListMatcher` in your Spring application context.
+
+## Limitations
+
+Due to lack of proper abstraction in Spring Cloud, this extension is targeting only Netflix Eureka, it's not going to
+work if you will use Consul or Zookeeper as your Spring Cloud enabled discovery services.
+
 ## Properties
 
+You can disable the extension through `ribbon.filter.metadata.enabled` property.
+
+```
+
+ribbon.filter.metadata.enabled=true # true by default
+
+```
 
 ## License
 
