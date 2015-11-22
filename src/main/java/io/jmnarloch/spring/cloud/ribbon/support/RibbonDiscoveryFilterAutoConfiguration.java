@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,11 +15,17 @@
  */
 package io.jmnarloch.spring.cloud.ribbon.support;
 
-import io.jmnarloch.spring.cloud.ribbon.matcher.MetadataServerListMatcher;
+import com.netflix.loadbalancer.Server;
+import com.netflix.loadbalancer.ServerListFilter;
+import com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList;
 import io.jmnarloch.spring.cloud.ribbon.api.DiscoveryEnabledServerListMatcher;
+import io.jmnarloch.spring.cloud.ribbon.matcher.MetadataServerListMatcher;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.netflix.ribbon.RibbonAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,12 +35,14 @@ import org.springframework.context.annotation.Configuration;
  * @author Jakub Narloch
  */
 @Configuration
+@ConditionalOnClass(DiscoveryEnabledNIWSServerList.class)
+@AutoConfigureBefore(RibbonAutoConfiguration.class)
 public class RibbonDiscoveryFilterAutoConfiguration {
 
     @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnBean(DiscoveryEnabledServerListMatcher.class)
-    @ConditionalOnMissingBean(RibbonDiscoveryServerListFilter.class)
-    public RibbonDiscoveryServerListFilter ribbonDiscoveryServerListFilter(DiscoveryEnabledServerListMatcher matcher) {
+    public ServerListFilter<Server> ribbonDiscoveryServerListFilter(DiscoveryEnabledServerListMatcher matcher) {
         return new RibbonDiscoveryServerListFilter(matcher);
     }
 
@@ -43,7 +51,7 @@ public class RibbonDiscoveryFilterAutoConfiguration {
     public static class MetadataRibbonFilterConfiguration {
 
         @Bean
-        @ConditionalOnMissingBean(MetadataServerListMatcher.class)
+        @ConditionalOnMissingBean
         public MetadataServerListMatcher metadataServerListMatcher() {
             return new MetadataServerListMatcher();
         }

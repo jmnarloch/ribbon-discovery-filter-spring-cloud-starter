@@ -15,10 +15,12 @@
  */
 package io.jmnarloch.spring.cloud.ribbon.support;
 
+import com.netflix.loadbalancer.Server;
 import com.netflix.loadbalancer.ServerListFilter;
 import com.netflix.niws.loadbalancer.DiscoveryEnabledServer;
 import io.jmnarloch.spring.cloud.ribbon.api.DiscoveryEnabledServerListMatcher;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ import java.util.List;
  *
  * @author Jakub Narloch
  */
-public class RibbonDiscoveryServerListFilter implements ServerListFilter<DiscoveryEnabledServer> {
+public class RibbonDiscoveryServerListFilter implements ServerListFilter<Server> {
 
     /**
      * The matcher instance.
@@ -47,7 +49,16 @@ public class RibbonDiscoveryServerListFilter implements ServerListFilter<Discove
      * {@inheritDoc}
      */
     @Override
-    public List<DiscoveryEnabledServer> getFilteredListOfServers(List<DiscoveryEnabledServer> servers) {
-        return matcher.matchServers(servers);
+    @SuppressWarnings("unchecked")
+    public List<Server> getFilteredListOfServers(List<Server> servers) {
+        final LinkedList<DiscoveryEnabledServer> discoveryServers = new LinkedList<>();
+        for(Server server : servers) {
+            if(server instanceof DiscoveryEnabledServer) {
+                discoveryServers.add((DiscoveryEnabledServer) server);
+            }
+        }
+
+        final List<? extends Server> matched = matcher.matchServers(discoveryServers);
+        return (List<Server>) matched;
     }
 }

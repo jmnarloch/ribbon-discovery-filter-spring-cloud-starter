@@ -8,8 +8,7 @@ ext {
             springCloudFeign                : 'org.springframework.cloud:spring-cloud-starter-feign:1.0.3.RELEASE',
             springCloudRibbon               : 'org.springframework.cloud:spring-cloud-starter-ribbon:1.0.3.RELEASE',
             springCloudEureka               : 'org.springframework.cloud:spring-cloud-starter-eureka:1.0.3.RELEASE',
-
-            feignCore                       : 'com.netflix.feign:feign-core:8.7.1',
+            springCloudEurekaServer         : 'org.springframework.cloud:spring-cloud-starter-eureka-server:1.0.3.RELEASE',
 
             springBootTest                  : 'org.springframework.boot:spring-boot-starter-test:1.2.5.RELEASE',
 
