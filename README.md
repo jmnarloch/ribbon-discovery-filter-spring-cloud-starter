@@ -7,7 +7,7 @@
 
 ## Features
 
-Allows to specify the criteria based on which the Ribbon load balanced servers lists will chosen during runtime.
+Allows to specify the criteria based on which the Ribbon load balanced servers lists will be chosen during runtime.
 It will affect the list of servers provided for instance through Eureka and allow to filter them based on presence of
 specific settings.
 
