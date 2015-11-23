@@ -35,7 +35,7 @@ to be used.
 Example:
 
 Let's consider situation when you have deployed multiple versions of the same application (by branching your codebase)
-overtime and you deploy and run them in you system simultaneously. You need to route your versioned requests towards
+overtime and you deploy and run them in your system simultaneously. You need to route your versioned requests towards
 correct services. A simple approach would be to prefix the name of your service like for instance `recommendations-v1.0`
 or `recommendations-v1.1` etc. This is going to work, but does not provide a very flexible solution. A more general
 approach would be to facilitate the metadata associated with your discovery service and add logic for filtering the services.
