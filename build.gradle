@@ -61,7 +61,6 @@ dependencies {
 
     testCompile (libraries.springBootWeb)
     testCompile (libraries.springBootTest)
-//    testCompile (libraries.springCloudEurekaServer)
     testCompile (libraries.junit)
     testCompile (libraries.mockito)
 }
