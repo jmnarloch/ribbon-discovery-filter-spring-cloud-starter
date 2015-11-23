@@ -7,8 +7,9 @@
 
 ## Features
 
-Allows to specify the criteria based on which the Ribbon servers will chosen during runtime. It will affect the list of
-servers provided for instance through Eureka and allow to filter them based on for instance presence of specific setting.
+Allows to specify the criteria based on which the Ribbon load balanced servers lists will chosen during runtime.
+It will affect the list of servers provided for instance through Eureka and allow to filter them based on presence of
+specific settings.
 
 ## Setup
 
@@ -47,7 +48,7 @@ eureka:
       variant: A
 ```
 
-To routes the Ribbon request towards services with specific `metadataMap` entries you need to populate the thread bound
+To route the Ribbon request towards services with specific `metadataMap` entries you need to populate the thread bound
 `RibbonFilterContext`:
 
 ```java
