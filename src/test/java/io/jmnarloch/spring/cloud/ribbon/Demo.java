@@ -93,6 +93,19 @@ public class Demo {
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
+    @Test
+    public void shouldRouteRequestWithMultipleContextAttributes() {
+
+        // given
+        RibbonFilterContextHolder.getCurrentContext().add("version", "1.0").add("variant", "A");
+
+        // when
+        ResponseEntity<String> response = restOperations.getForEntity("http://local/message", String.class);
+
+        // then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
     @Test(expected = Exception.class)
     public void shouldFailForNonMatchingServer() {
 
@@ -118,6 +131,7 @@ public class Demo {
         public ServerList<?> ribbonServerList() {
             Map<String, String> metadata = new HashMap<>();
             metadata.put("version", "1.0");
+            metadata.put("variant", "A");
             InstanceInfo instanceInfo = InstanceInfo.Builder.newBuilder()
                     .setAppName("local")
                     .setHostName("localhost")
