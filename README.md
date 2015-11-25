@@ -44,7 +44,7 @@ approach would be to facilitate the metadata associated with your discovery serv
 eureka:
   instance:
     metadataMap:
-      version: 1.0
+      version: 1.1
       variant: A
 ```
 
@@ -54,7 +54,7 @@ To route the Ribbon request towards services with specific `metadataMap` entries
 ```java
 
 RibbonFilterContextHolder.getCurrentContext()
-                .add("version", "1.0")
+                .add("version", "1.1")
                 .add("variant", "A");
 
 ```
