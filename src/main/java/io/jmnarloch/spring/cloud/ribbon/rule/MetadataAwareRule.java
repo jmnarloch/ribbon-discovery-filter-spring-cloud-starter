@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.jmnarloch.spring.cloud.ribbon.api;
+package io.jmnarloch.spring.cloud.ribbon.rule;
 
-import com.netflix.niws.loadbalancer.DiscoveryEnabledServer;
-
-import java.util.List;
+import io.jmnarloch.spring.cloud.ribbon.predicate.MetadataAwarePredicate;
 
 /**
- * A basic service list matcher. The concrete implementation of this interfaces should provide a specific logic.
+ * A metadata aware {@link DiscoveryEnabledRule} implementation.
  *
  * @author Jakub Narloch
+ * @see DiscoveryEnabledRule
+ * @see MetadataAwarePredicate
  */
-public interface DiscoveryEnabledServerListMatcher {
+public class MetadataAwareRule extends DiscoveryEnabledRule {
 
     /**
-     * Match the list of servers.
-     *
-     * @param servers the server list
-     * @return the matched server list
+     * Creates new instance of {@link MetadataAwareRule}.
      */
-    List<DiscoveryEnabledServer> matchServers(List<DiscoveryEnabledServer> servers);
+    public MetadataAwareRule() {
+        super(new MetadataAwarePredicate());
+    }
 }

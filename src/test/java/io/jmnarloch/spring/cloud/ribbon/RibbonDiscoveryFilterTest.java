@@ -56,9 +56,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
 @WebAppConfiguration
 @IntegrationTest
-@SpringApplicationConfiguration(classes = {Demo.Application.class})
+@SpringApplicationConfiguration(classes = {RibbonDiscoveryFilterTest.Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class Demo {
+public class RibbonDiscoveryFilterTest {
 
     @LoadBalanced
     @Autowired
@@ -106,7 +106,7 @@ public class Demo {
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = IllegalStateException.class)
     public void shouldFailForNonMatchingServer() {
 
         // given
