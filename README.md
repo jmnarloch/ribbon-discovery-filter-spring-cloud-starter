@@ -19,18 +19,19 @@ Add the Spring Cloud starter to your project:
 <dependency>
   <groupId>io.jmnarloch</groupId>
   <artifactId>ribbon-discovery-filter-spring-cloud-starter</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
 ## Usage
 
-The extension specifies a `DiscoveryEnabledServerListMatcher` interface through which you can provide your own filtering
-logic, currently it's only implementation is `MetadataServerListMatcher` that match the specified attribute against the
-service instance metadata.
+The extension specifies a custom Ribbon rule - `DiscoveryEnabledRule` an abstract class through which you can provide
+your own filtering logic, currently it's only implementation is `MetadataAwareRule` that match the specified attribute
+against the registered service instance metadata map. The API allows to specify the expected attributes through
+RibbonFilterContextHolder at runtime.
 
-It's defines the glue code to perform the server filtering, but it's up to specific use case how exactly this is going
-to be used.
+The extension defines the glue code to perform the server filtering, but it's up to specific use case how exactly this
+is going to be used.
 
 Example:
 
@@ -63,7 +64,7 @@ You can place such code in your application logic or in some more convenient pla
 ClientHttpRequestInterceptor for more generic approaches.
 
 You may also provide your own custom logic, the only requirement is to implement and register instance of
-`DiscoveryEnabledServerListMatcher` in your Spring application context.
+`DiscoveryEnabledRule` in your Spring application context.
 
 ## Limitations
 
