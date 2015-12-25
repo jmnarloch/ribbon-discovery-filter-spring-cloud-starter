@@ -5,7 +5,6 @@ ext {
             springBootConfigurationProcessor: 'org.springframework.boot:spring-boot-configuration-processor:1.2.5.RELEASE',
             springBootWeb                   : 'org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE',
 
-            springCloudFeign                : 'org.springframework.cloud:spring-cloud-starter-feign:1.0.3.RELEASE',
             springCloudRibbon               : 'org.springframework.cloud:spring-cloud-starter-ribbon:1.0.3.RELEASE',
             springCloudEureka               : 'org.springframework.cloud:spring-cloud-starter-eureka:1.0.3.RELEASE',
             springCloudEurekaServer         : 'org.springframework.cloud:spring-cloud-starter-eureka-server:1.0.3.RELEASE',
