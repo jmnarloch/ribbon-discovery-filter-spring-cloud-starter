@@ -19,7 +19,7 @@ Add the Spring Cloud starter to your project:
 <dependency>
   <groupId>io.jmnarloch</groupId>
   <artifactId>ribbon-discovery-filter-spring-cloud-starter</artifactId>
-  <version>2.0.1</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 
