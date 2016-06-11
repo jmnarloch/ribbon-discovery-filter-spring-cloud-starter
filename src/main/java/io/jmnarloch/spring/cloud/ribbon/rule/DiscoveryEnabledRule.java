@@ -41,7 +41,7 @@ public abstract class DiscoveryEnabledRule extends PredicateBasedRule {
      * @throws IllegalArgumentException if {@code discoveryEnabledPredicate} is {@code null}
      */
     public DiscoveryEnabledRule(DiscoveryEnabledPredicate discoveryEnabledPredicate) {
-        Assert.notNull(discoveryEnabledPredicate, "Paraemeter 'discoveryEnabledPredicate' can't be null");
+        Assert.notNull(discoveryEnabledPredicate, "Parameter 'discoveryEnabledPredicate' can't be null");
         this.predicate = createCompositePredicate(discoveryEnabledPredicate, new AvailabilityPredicate(this, null));
     }
 
