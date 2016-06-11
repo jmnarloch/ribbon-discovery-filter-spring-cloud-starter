@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,6 +21,7 @@ import com.netflix.loadbalancer.CompositePredicate;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.PredicateBasedRule;
 import io.jmnarloch.spring.cloud.ribbon.predicate.DiscoveryEnabledPredicate;
+import org.springframework.util.Assert;
 
 /**
  * A simple {@link IRule} for matching the discovered server instances. The actual matching is being performed by the
@@ -36,9 +37,11 @@ public abstract class DiscoveryEnabledRule extends PredicateBasedRule {
     /**
      * Creates new instance of {@link DiscoveryEnabledRule} class with specific predicate.
      *
-     * @param discoveryEnabledPredicate the discovery enabled predicate
+     * @param discoveryEnabledPredicate the discovery enabled predicate, can't be null
+     * @throws IllegalArgumentException if {@code discoveryEnabledPredicate} is {@code null}
      */
     public DiscoveryEnabledRule(DiscoveryEnabledPredicate discoveryEnabledPredicate) {
+        Assert.notNull(discoveryEnabledPredicate, "Paraemeter 'discoveryEnabledPredicate' can't be null");
         this.predicate = createCompositePredicate(discoveryEnabledPredicate, new AvailabilityPredicate(this, null));
     }
 
